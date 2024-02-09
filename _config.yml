@@ -4,3 +4,7 @@ theme: just-the-docs
 
 url: https://xxjsw.github.io/blogpost
 search_enabled: false
+
+compress_html: blanklines: true
+# LaTeX rendering via "katex" (KaTeX, default) or "mathjax" (MathJax) or "none" / "off" (NO rendering)
+latex: katex
