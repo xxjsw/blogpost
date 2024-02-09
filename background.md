@@ -5,6 +5,7 @@ nav_order: 2
 ---
 
 ## 2.1 Algorithmic Trading
+![Algo Trading](figs/algotrading.png)
 Algo trading utilizes algorithms to execute high-speed, automated trades in financial markets. These algorithms are designed to analyze market data, identify trading opportunities, and automatically execute orders at optimal prices and speeds. Algo trading aims to capitalize on market inefficiencies and is widely used by investors for precise, efficient and rapid trading execution.
 ## 2.2 Dynamics of the Gas Market
 In the preliminary stages of algorithmic design and deployment, in order to select an appropriate method to explore market’s behavior, a comprehensive understanding of market dynamics is imperative, especially considering the significant variations observed across different markets. In the context of our discourse, primarily centered on gas markets, it is crucial to take an initial inspection of it.
