@@ -3,6 +3,7 @@ title: 2. Background
 layout: default
 nav_order: 2
 ---
+This section aims to provide necessary background information of algorithmic trading and quantitative risk management. Specifically, due to the fundamental dynamics inherent in the gas market, the two crucial aspects of risk management in gas trading will be outlined: precise gas price prediction and gas storage plan optimization. This paper was dedicated to tackling the latter.
 
 ## 2.1 Algorithmic Trading
 ![Algo Trading](figs/algotrading.png)

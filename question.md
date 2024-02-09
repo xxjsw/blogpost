@@ -13,10 +13,10 @@ In this section, a detailed introduction will delve into the mathematical modeli
 | Initial storage | 0 units(plus cushion gas)| 
 | Terminal storage |  0 units(plus cushion gas) | 
 | Capacity | c | 
-| Injection rate on day $$k$$ | $$u_k$$ units $$u_k>0$$ |  
-| Withdrawal rate on day $$k$$ | $$l_k$$ units $$l_k<0$$ | 
-| Injection cost | $$\kappa \in [0,1]| 
-| Withdrawal cost | $$\kappa \in [0,1]| 
+| Injection rate on day $k$ | $u_k$ units $u_k>0$ |  
+| Withdrawal rate on day $k$ | $l_k$ units $l_k<0$ | 
+| Injection cost | $\kappa \in [0,1]$| 
+| Withdrawal cost | $\kappa \in [0,1]$| 
 | Overhead(one time expense) | C$|  
 
 Table: Storage optimization constraints with unit: therm or MWh
