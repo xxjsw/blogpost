@@ -47,12 +47,12 @@ Meanwhile, this optimization process must adhere to the following constraints:
 
 
 ### 4.2.2 Training Setup
-* **Training Data**
-* **Training Object**
-* **Training Criterion**
-* **Implementation**
+#### Training Data
+#### Training Object
+#### Training Criterion**
+#### Implementation**
 _TENSORFLOW.KERAS_ with _sigmoid_ activation function
-* **Hardware**
+#### Hardware**
 A standard 8-core notebook
   
 ## 4.3 SFMod: intrinsic spot and forward trading
