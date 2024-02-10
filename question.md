@@ -21,9 +21,13 @@ In this section, a detailed introduction will delve into the mathematical modeli
 | Withdrawal cost | $$\kappa \in [0,1]$$| 
 | Overhead(one time expense) | C$|  
 
-_Remark: In underground storage, there’s typically cushion or base gas, maintained to uphold minimal pressure. For simplicity, injection and withdrawal costs are assumed to be proportional to their respective actions in the above table, but in reality, these costs vary with the pressure in the underground storage. Furthermore, the parties often agree to overlook physical complexities when trading storage capacities._
+_Remarks: In underground storage, there’s typically cushion or base gas, maintained to uphold minimal pressure. For simplicity, injection and withdrawal costs are assumed to be proportional to their respective actions in the above table, but in reality, these costs vary with the pressure in the underground storage. Furthermore, the parties often agree to overlook physical complexities when trading storage capacities._
 
-The above table lists necessary storage optimization constraints with unit: therm or MWh
+The above table lists necessary parameters to define storage optimization constraints with unit: therm or MWh. In addition, the following variables are required to describe this problem adequately：
+
+* A discrete time setting: $$T=\{0, 1, 2, ..., K-1\}$$ for some $$K \in \mathbb{N} $$ be the trading horizon in days
+* A filtered probability space with real-world measure for modelling stochastic process: $$(\Omega,\mathbf{F}, \mathbb{F}, \mathbb{P})$$ with $$\mathbb{F}=(\mathbf{F}_k)_{k \in T}$$
+* An equivalent risk-neutral measure $$\mathbb{Q}$$ representing the attitude of investors when facing risks
 
 ## 3.2 Traditional Methods & their Limitations
 Having domain-specific expertise, one can employ classical optimization methods such as Least-Squares Monte-Carlo(LSMC) and Support Vector Machine(SVM) regression as stochastic control problem with Hamilton-Jacobi-Bellman equations to tackle such a constrained optimization instance. Additionally, dynamic programming and real option theory can aid addressing such challenges. However, traditional techniques encounter the “curse of dimensionality”, which refers to the phenomenon where the computational complexity increases exponentially with the number of variables or dimensions in the problem. This poses challenges, as the number of dimensions grows, the amount of data required to accurately represent the problem space increases exponentially. Consequently, methods struggle to efficiently explore and analyze high-dimensional spaces, leading to computational inefficiencies and difficulties in finding optimal solutions.
