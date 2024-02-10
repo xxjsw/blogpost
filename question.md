@@ -26,7 +26,7 @@ _Remarks: In underground storage, there’s typically cushion or base gas, maint
 The above table lists necessary parameters to define storage optimization constraints with unit: therm or MWh. In addition, the following variables are required to describe this problem adequately：
 
 * A discrete time setting: $$T=\{0, 1, 2, ..., K-1\}$$ for some $$K \in \mathbb{N} $$ be the trading horizon in days
-* A filtered probability space with real-world measure for modelling stochastic process: $$(\Omega,\mathbf{F}, \mathbb{F}, \mathbb{P})$$ with $$\mathbb{F}=(\mathbf{F}_k)_{k \in T}$$
+* A filtered probability space with real-world measure for modelling stochastic process for forward trading later: $$(\Omega,\mathbf{F}, \mathbb{F}, \mathbb{P})$$ with $$\mathbb{F}=(\mathbf{F}_k)_{k \in T}$$
 * An equivalent risk-neutral measure $$\mathbb{Q}$$ representing the attitude of investors when facing risks
 
 
