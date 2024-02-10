@@ -10,7 +10,7 @@ In this section, a detailed introduction will delve into the mathematical modeli
 
 ## 3.1 Mathematical Modeling
 
-| Variables| Constraints  |
+| Variable| Constraint  |
 | :----------- |: ----------- |
 | Initial storage | 0 units(plus cushion gas)| 
 | Terminal storage |  0 units(plus cushion gas) | 
