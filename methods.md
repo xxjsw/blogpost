@@ -11,6 +11,8 @@ Hedging is a risk management strategy for protecting against market volatility a
 
 Traditional methods for developing hedging strategies, such as statistical analysis and derivatives pricing methods, rely on historical data and heavy mathematical equations to identify risks and formulate positions. These methods may struggle to capture complex market patterns and nonlinear relationships, leading to less accurate predictions. In contrast, deep learning offers a powerful tool for processing large datasets and learning complex patterns directly from the data, making them more robust and adaptive in dynamic market conditions.
 
+![NN](figs/feedforwardnn.png)
+
 ## 4.2 SMod: intrinsic spot trading
 ### 4.2.1 Scene Setting
 ### 4.2.2 Training Setup
