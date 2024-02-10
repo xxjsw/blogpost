@@ -27,7 +27,14 @@ Let $$L\in \mathbb{N}$$, a feed-forward neural network $${g}^\theta$$ is defined
 
 Following variables are required to build the neural networks:
 
-
+| Variable|  Interpretation|
+| :----------- |: ----------- |
+| $$s_k$$ | the￼$$\mathbb{F}$$-adapted gas spot price| 
+| $${h}^S_k$$|  action on day $$k$$ | 
+| $${H}^S=\{{h}^S_0,{h}^S_1,...,{h}^S_{K-1}\}$$| a trading strategy over the whole trading horizon| 
+| $$({H}^s \cdot S)_{K-1} = \sum_{k=0}^{K-1}{h}^S_ks_k$$ | terminal value |  
+| $${H}^S_n= \sum_{k=0}^{n-1}{h}^S_k$$ |storage level on day n (Initial condition: $${H}^s_0=0 $$) | 
+| $$U(x)=(1-{e}^{-\gamma x})/\gamma$$ | an exponential utility function with risk aversion rate $$\gamma \in \mathbb{R}^+$$| 
 
 The optimization goal should be the expected terminal utility $$\mathbb{E}_\mathbb{P}[U(W_{K-1})]$$ over all eligible $${H}^s$$ where $$W_{K-1}=-({H}^s \cdot S)_{K-1} = \sum_{k=0}^{K-1}-{h}^s_ks_k$$ denotes the terminal p&l.
 
@@ -45,7 +52,7 @@ Meanwhile, this optimization process must adhere to the following constraints:
 **spot and forward trading**: extend the previous spot-only model by trading additionally on the front month rolling forwards with delivery period of a whole month.
 ![forward](figs/SFMod/rolling_strategy.png)
 
-The visualization shows the forward trading mechanisms. The arrow points to the current timeframe. The black box refers to the spot trading part and the green box refers to the forward trading part. In SFMod, the action on day $$k$$ is $${h}^S_k+{d}^j$$ for $$ n_j \leq k \leq n_{j+1}$$, which combines both spot trading and forward trading. Forward trading activities have a delayed effect on the spot trading in the following month, while spot trading does not affect forward trading. After the respective forward trading has already terminated, the delivery quantities of the upcoming days in the current month are fixed, and the spot trading activities of the current month is limited by the due forwards.
+The visualization shows the forward trading mechanisms. The arrow points to the current timeframe. The black box refers to the spot trading part and the green box refers to the forward trading part. In SFMod, let $$0=n_0 < n_1< ... < n_J <K$$ be the first days of the months $$\mathbb{J}=\{0, 1, ..., J\}$$ respectively, let $${h}^j_k$$ with $$j \in \mathbb{J}$$ be the action on day $$k$$ on the forward $$F(k, n_j, n_{j+1}-1)$$ whose delivery obligation is during the period $$[n_j, n_{j+1}-1]$$, then the action on day $$k$$ is $$({h}^S_k+{d}^j)$$ for $$ n_j \leq k \leq n_{j+1}$$, which combines both spot trading and forward trading. Forward trading activities have a delayed effect on the spot trading in the following month, while spot trading does not affect forward trading. After the respective forward trading has already terminated, the delivery quantities of the upcoming days in the current month are fixed, and the spot trading activities of the current month is limited by the due forwards.
 
 ### 4.3.2 Training Setup
 ---
