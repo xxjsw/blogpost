@@ -1,3 +1,8 @@
-<script type="text/javascript" async 
-src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?
-config=TeX-AMS-MML_HTMLorMML"></script>
+{% if page.mathjax %}
+  <script type="text/x-mathjax-config">
+    {{ site.mathjax.config }};
+  </script>
+  <script type="text/javascript" async 
+    src="{{ site.mathjax.source }}">
+  </script>
+{% endif %}

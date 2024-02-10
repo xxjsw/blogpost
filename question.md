@@ -2,6 +2,7 @@
 title: 3. Research Question
 layout: default
 nav_order: 3
+mathjax:true
 ---
 Following the foundational overview of gas trading, attention turns to the issues to be solved in this paper - a constrained optimization instance. In this scenario, imagine yourself as a gas producer whose responsibility is to carry out gas storage plans through storage facilities in order to maximize accrued wealth at the terminal time. Nevertheless, the optimization is bounded by constraints crucial for aligning with market dynamics and ensuring stability. For example, there are upper limits of the daily gas extraction rate. The gas storage manager cannot sell a significant volume of gas at peak prices and must embrace the duty of continuous gas delivery and maintaining market equilibrium. 
 In this section, a detailed introduction will delve into the mathematical modeling of the constrained optimization problem, providing clarity on the parameters necessary for problem definition. Following that, the traditional methods and their associated limitations will be briefly discussed, which is anticipated to inspire your motivation in “deep hedging” in the upcoming section.
