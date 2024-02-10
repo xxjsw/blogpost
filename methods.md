@@ -17,12 +17,13 @@ A popular approach within deep reinforcement learning centers on using (feed-for
 ![NN](figs/feedforwardnn.png)
 #### Definition: Feed-Forward Neural Network
 #### Let $$L\in \mathbb{N}$$, a feed-forward neural network $${g}^\theta$$ is defined as $$A^L \circ \phi \circ A^{L-1} \circ ... \circ \phi \circ  A^1(x)$$, where
-#### * $$L\in \mathbb{N}$$ - number of layers                                                              
-#### * $$\phi(\cdot)$$ -￼non-linear activation function
-#### * $$A^l, l=1,...,L$$ -￼affine linear maps in the respective dimensions, whose parameters are stored in $$\theta$$
+#### - $$L\in \mathbb{N}$$ - number of layers                                                              
+#### - $$\phi(\cdot)$$ -￼non-linear activation function
+#### - $$A^l, l=1,...,L$$ -￼affine linear maps in the respective dimensions, whose parameters are stored in $$\theta$$
 
 ## 4.2 SMod: intrinsic spot trading
 ### 4.2.1 Scene Setting
+In
 
 ### 4.2.2 Training Setup
 
