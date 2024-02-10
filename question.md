@@ -29,6 +29,9 @@ The above table lists necessary parameters to define storage optimization constr
 * A filtered probability space with real-world measure for modelling stochastic process: $$(\Omega,\mathbf{F}, \mathbb{F}, \mathbb{P})$$ with $$\mathbb{F}=(\mathbf{F}_k)_{k \in T}$$
 * An equivalent risk-neutral measure $$\mathbb{Q}$$ representing the attitude of investors when facing risks
 
+
+The goal of gas storage optimization is to determine optimal decisions within a constrained and uncertain market environment to maximize the expected terminal utility of accumulated wealth. More formally, let **$$h_k$$** be the action taken on day **$$k$$**($$h_k > 0$$refers to an injection of $$|h_k|$$ MWh and $$h_k < 0$$ refers to a withdraw of $$|h_k|$$ MWh), then a trading strategy over the whole trading horizon is collected in **$$H=\{h_0, h_1,..., h_{K-1} \}$$**. The agents seeks to identify an optimal strategy ￼ satisfying: **$${H}^*= \text{arg max}{}_H \mathbb{E}_\mathbb{P}[U(W_H)]$$**
+
 ## 3.2 Traditional Methods & their Limitations
 Having domain-specific expertise, one can employ classical optimization methods such as Least-Squares Monte-Carlo(LSMC) and Support Vector Machine(SVM) regression as stochastic control problem with Hamilton-Jacobi-Bellman equations to tackle such a constrained optimization instance. Additionally, dynamic programming and real option theory can aid addressing such challenges. However, traditional techniques encounter the “curse of dimensionality”, which refers to the phenomenon where the computational complexity increases exponentially with the number of variables or dimensions in the problem. This poses challenges, as the number of dimensions grows, the amount of data required to accurately represent the problem space increases exponentially. Consequently, methods struggle to efficiently explore and analyze high-dimensional spaces, leading to computational inefficiencies and difficulties in finding optimal solutions.
 
