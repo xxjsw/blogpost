@@ -9,7 +9,7 @@ Following the foundational overview of gas trading, attention turns to the issue
 In this section, a detailed introduction will delve into the mathematical modeling of the constrained optimization problem, providing clarity on the parameters necessary for problem definition. Following that, the traditional methods and their associated limitations will be briefly discussed, which is anticipated to inspire your motivation in “deep hedging” in the upcoming section.
 
 ## 3.1 Mathematical Modeling
-
+The below table lists necessary storage optimization constraints with unit: therm or MWh
 | Variables| Constraints  |
 | :----------- |: ----------- |
 | Initial storage | 0 units(plus cushion gas)| 
@@ -17,11 +17,9 @@ In this section, a detailed introduction will delve into the mathematical modeli
 | Capacity | c | 
 | Injection rate on day $$k$$ | $$u_k$$ units $$u_k>0$$ |  
 | Withdrawal rate on day $$k$$ | $$l_k$$ units $$l_k<0$$ | 
-| Injection cost | $§\kappa \in [0,1]$$| 
+| Injection cost | $$\kappa \in [0,1]$$| 
 | Withdrawal cost | $$\kappa \in [0,1]$$| 
 | Overhead(one time expense) | C$|  
-
-The above table lists necessary storage optimization constraints with unit: therm or MWh
 
 _Remark: In underground storage, there’s typically cushion or base gas, maintained to uphold minimal pressure. For simplicity, injection and withdrawal costs are assumed to be proportional to their respective actions in the above table, but in reality, these costs vary with the pressure in the underground storage. Furthermore, the parties often agree to overlook physical complexities when trading storage capacities._
 
