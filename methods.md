@@ -33,7 +33,8 @@ The optimization goal should be the expected terminal utility $$\mathbb{E}_\math
 
 Meanwhile, this optimization process must adhere to the following constraints:
 1. $${H}^S_K =0$$, i.e., empty final storage(intuitive for any profit-seeking agents)
-1. For all $$0 \leq {H}^S_k\leq c$$ (storage level on any day must not exceed storage capacity $$c$$) and daily action constraints $$l_k^* \leq {h}^S_k\leq u_k^*$$, where $$l_k^* = \text{max}\{l_k,-H_k^S\}$$ and $$u_k^* = \text{min}\{u_k,c-H_k^S\}$$. The withdraw and injection rate on each trading day must be limited by the storage level $${H}^S_K$$ and a predefined lower and upper bounds $$l_k$$ and $$u_k$$ to fit the seasonal demands and supply patterns.
+1. For all $$0 \leq {H}^S_k\leq c$$ (storage level on any day must not exceed storage capacity $$c$$) and daily action constraints $$l_k^* \leq {h}^S_k\leq u_k^*$$, where $$l_k^* = \text{max}\{l_k,-H_k^S\}$$ and $$u_k^* = \text{min}\{u_k,c-H_k^S\}$$. The withdrawal and injection rates on each trading day must be limited by the storage level $${H}^S_K$$ and a predefined lower and upper bounds $$l_k$$ and $$u_k$$ to fit the seasonal demands and supply patterns.
+</br>
 ![limits](figs/limits.png)
 
 
@@ -43,7 +44,8 @@ Meanwhile, this optimization process must adhere to the following constraints:
 ### 4.3.1 Scene Setting
 **spot and forward trading**: extend the previous spot-only model by trading additionally on the front month rolling forwards with delivery period of a whole month.
 ![forward](figs/SFMod/rolling_strategy.png)
-_Remarks: The visualization shows the forward trading mechanisms. The arrow points to the current timeframe. The black box refers to the spot trading part and the green box refers to the forward trading part._
+
+The visualization shows the forward trading mechanisms. The arrow points to the current timeframe. The black box refers to the spot trading part and the green box refers to the forward trading part. In SFMod, the action on day $$k$$ is $${h}^S_k+{d}^j$$ for $$ n_j \leq k \leq n_{j+1}$$, which combines both spot trading and forward trading. Forward trading activities have a delayed effect on the spot trading in the following month, while spot trading does not affect forward trading. After the respective forward trading has already terminated, the delivery quantities of the upcoming days in the current month are fixed, and the spot trading activities of the current month is limited by the due forwards.
 
 ### 4.3.2 Training Setup
 ---
