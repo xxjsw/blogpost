@@ -41,13 +41,16 @@ The optimization goal should be the expected terminal utility $$\mathbb{E}_\math
 Meanwhile, this optimization process must adhere to the following constraints:
 1. $${H}^S_K =0$$, i.e., empty final storage(intuitive for any profit-seeking agents)
 1. For all $$0 \leq {H}^S_k\leq c$$ (storage level on any day must not exceed storage capacity $$c$$) and daily action constraints $$l_k^* \leq {h}^S_k\leq u_k^*$$, where $$l_k^* = \text{max}\{l_k,-H_k^S\}$$ and $$u_k^* = \text{min}\{u_k,c-H_k^S\}$$. The withdraw and injection rate on each trading day must be limited by the storage level $${H}^S_K$$ and a predefined lower and upper bounds $$l_k$$ and $$u_k$$ to fit the seasonal demands and supply patterns.
-
+![limits](figs/limits.png)
 
 
 ### 4.2.2 Training Setup
 
 ## 4.3 SFMod: intrinsic spot and forward trading
 ### 4.3.1 Scene Setting
+**spot and forward trading**: extend the previous spot-only model by trading additionally on the front month rolling forwards with delivery period of a whole month.
+![forward](figs/SFMod/rolling_strategy.png)
+_Remarks: The visualization shows the forward trading mechanisms. The arrow points to the current timeframe. The black box refers to the spot trading part and the green box refers to the forward trading part._
 
 ### 4.3.2 Training Setup
 ---
