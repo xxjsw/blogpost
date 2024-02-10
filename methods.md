@@ -38,6 +38,12 @@ Following variables are required to build the neural networks:
 
 The optimization goal should be the expected terminal utility $$\mathbb{E}_\mathbb{P}[U(W_{K-1})]$$ over all eligible $${H}^s$$ where $$W_{K-1}=-({H}^s \cdot S)_{K-1} = \sum_{k=0}^{K-1}-{h}^s_ks_k$$ denotes the terminal p&l.
 
+Meanwhile, this optimization process must adhere to the following constraints:
+1. $${H}^S_K =0$$, i.e., empty final storage(intuitive for any profit-seeking agents)
+1. For all $$0 \leq {H}^S_k\leq c$$ (storage level on any day must not exceed storage capacity $$c$$) and daily action constraints $$l_k^* \leq {h}^S_k\leq u_k^*$$, where $$l_k^* = \text{max}\{l_k,-H_k^S\}$$ and $$u_k^* = \text{min}\{u_k,c-H_k^S\}$$. The withdraw and injection rate on each trading day must be limited by the storage level $${H}^S_K$$ and a predefined lower and upper bounds $$l_k$$ and $$u_k$$ to fit the seasonal demands and supply patterns.
+
+
+
 ### 4.2.2 Training Setup
 
 ## 4.3 SFMod: intrinsic spot and forward trading
