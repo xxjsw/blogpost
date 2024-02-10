@@ -15,13 +15,13 @@ In this section, a detailed introduction will delve into the mathematical modeli
 | Initial storage | 0 units(plus cushion gas)| 
 | Terminal storage |  0 units(plus cushion gas) | 
 | Capacity | c | 
-| Injection rate on day $k$ | $u_k$ units $u_k>0$ |  
-| Withdrawal rate on day $k$ | $l_k$ units $l_k<0$ | 
-| Injection cost | $\kappa \in [0,1]$| 
-| Withdrawal cost | $\kappa \in [0,1]$| 
+| Injection rate on day $$k$$ | $$u_k$$ units $$u_k>0$$ |  
+| Withdrawal rate on day $$k$$ | $$l_k$$ units $$l_k<0$$ | 
+| Injection cost | $§\kappa \in [0,1]$$| 
+| Withdrawal cost | $$\kappa \in [0,1]$$| 
 | Overhead(one time expense) | C$|  
 
-Table: Storage optimization constraints with unit: therm or MWh
+The above table lists necessary storage optimization constraints with unit: therm or MWh
 
 _Remark: In underground storage, there’s typically cushion or base gas, maintained to uphold minimal pressure. For simplicity, injection and withdrawal costs are assumed to be proportional to their respective actions in the above table, but in reality, these costs vary with the pressure in the underground storage. Furthermore, the parties often agree to overlook physical complexities when trading storage capacities._
 
