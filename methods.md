@@ -95,6 +95,7 @@ To describe this scenario, which integrates forward trading and thus becomes mor
 | $$d^j=\sum_{k=n_{j-1}}^{n_j-1}h^j_k $$|  daily delivery quantity fixed on day $$n_j-1$$, and $$d^0=0$$| 
 | $$H_n= \sum^{n-1}_{k=0}h^S_{k} + \sum^{I-1}_{j=1}(d^j(n_{j+1}-n_j))+(d^{I-1}(n-n_{I-1}+1))$$ for $$n \in [n_{I-1}, n_I]$$| the storage level depends on both spot and monthly forward trading activities(Initial condition: $${H}_n=0 $$) | 
 
+The terminal p&l generated from forward trading must also be considered as optimization objectives. In this context, the objective function expands to $$\mathbb{E}_\mathbb{P}[U(W^S_{K-1}+W^F_{K-1})]$$, where $$W^F_{K-1}=\sum^{J-1}_{j=1}\sum^{n_j-1}_{k=n_{j-1}}(-h^j_{k}F(k, n_j, n_{j+1}-1)(n_{j+1}-n_j))$$ denotes the terminal p&l from trading the monthly forward.
 
 ### 4.3.2 Training Setup
 The training setup for **SFMod** closely resembles that of **SMod**, with the spot trading component remaining consistent and introducing adjustments solely to incorporate the forward trading component.
