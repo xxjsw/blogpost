@@ -5,7 +5,7 @@ nav_order: 4
 mathjax: true
 ---
 
-This section will center on the framework introduced in the paper, which aims to optimize gas storage by means of deep hedging. It will begin with how to customize neural networks in order to develop hedging strategies, elucidating the concept of deep hedging. Following that, attention will be directed towards the two frameworks - **SMod** and **SFMod**, each tailored to specific scenarios: one focusing solely on spot trading, while the other adopts a more complex approach involving forward trading. Both of them are based on intrinsic valuation, which means assessing the fundamental worth of traded assets rather than short-term market fluctuations or speculative factors. Then an in-depth presentation of the training setup for the two scenarios of varying complexity will encompass crucial elements for neural network training setup including datasets, network architecture, loss functions, optimization algorithms and hyperparameters.
+This section will center on the framework introduced in the paper, which aims to optimize gas storage by means of **deep hedging**. It will begin with how to customize neural networks in order to develop hedging strategies, elucidating the concept of **deep hedging**. Following that, attention will be directed towards the two frameworks - **SMod** and **SFMod**, each tailored to specific scenarios: one focusing solely on spot trading, while the other adopts a more complex approach involving forward trading. Both of them are based on intrinsic valuation, which means assessing the fundamental worth of traded assets rather than short-term market fluctuations or speculative factors. Then an in-depth presentation of the training setup for the two scenarios of varying complexity will encompass crucial elements for neural network training setup, which includes datasets, network architecture, loss functions, optimization algorithms and hyperparameters.
 
 ## 4.1 Deep Hedging
 [Hedging] is a risk management strategy for protecting against market volatility and uncertainty, allowing investors to safeguard their portfolios and achieve more stable returns. For example, in gas trading, a company that anticipates a decrease in gas price may hedge its position by purchasing futures contracts to lock in a more favorable price. This strategy helps mitigate potential losses if prices decline, ensuring more predictable revenue streams for the company. 
@@ -14,16 +14,16 @@ Traditional methods for developing hedging strategies, such as statistical analy
 
 <br/>
 ![deepRL](figs/deeprl.png)
-The above graph shows the basic architecture of [deep reinforcement learning]. A popular approach within deep reinforcement learning centers on using (feed-forward) neural networks to approximate optimal actions, as neural networks are well-suited for such intricate tasks due to their versatility and efficient training capabilities. Then the storage optimization tasks should be reformulated such that it fits the structure of neural networks. Approximate each action $$h_k$$ in terms of a deep neural network $$g^\theta _k$$, parameters $$\theta$$ of these network strategies $$G^\theta = \{g_0^\theta, ...,g_{K-1}^\theta\}$$ are trained to maximize an estimate of the expected terminal utility, i.e., to solve $$\text{ max}{}_\theta \mathbb{E}_\mathbb{P}[U(W_{G^\theta})]$$. 
+The above graph shows the basic architecture of [deep reinforcement learning]. A popular approach within deep reinforcement learning centers on using (feed-forward) neural networks to approximate optimal actions, as neural networks are well-suited for such intricate tasks due to their versatility and efficient training capabilities. Then the storage optimization tasks should be reformulated such that it fits the structure of neural networks, i.e., approximate each action $$h_k$$ in terms of a deep neural network $$g^\theta _k$$, parameters $$\theta$$ of these network strategies $$G^\theta = \{g_0^\theta, ...,g_{K-1}^\theta\}$$ are trained to maximize an estimate of the expected terminal utility, i.e., to solve $$\text{ max}{}_\theta \mathbb{E}_\mathbb{P}[U(W_{G^\theta})]$$. 
 
-It is noteworthy that, in the formulation of their frameworks, as opposed to the depicted reinforcement learning architecture(see above graph), they avoided computing intermediate value functions and evaluating actions in states with low likelihood of occurrence. Such an approach significantly decreases the computational complexity. Furthermore, their frameworks are not bounded by temporal consistency requirements or by expected reward specifications.
+It is noteworthy that, in the formulation of their frameworks, as opposed to the depicted reinforcement learning architecture(see above graph), they avoided computing intermediate value functions and evaluating actions in states with low likelihood of occurrence. Such an approach significantly decreases the computational complexity. Furthermore, their frameworks are not bounded by temporal consistency requirements or by expected reward specifications, which are also essential parts in reinforcement learning.
 
 ![NN](figs/feedforwardnn.png)
 ### Definition: Feed-Forward Neural Network
 Let $$L\in \mathbb{N}$$, a feed-forward neural network $${g}^\theta$$ is defined as $$A^L \circ \phi \circ A^{L-1} \circ ... \circ \phi \circ  A^1(x)$$, where
 * $$L\in \mathbb{N}$$ - number of layers                                                              
-* $$\phi(\cdot)$$ -￼non-linear activation function
-* $$A^l, l=1,...,L$$ -￼affine linear maps in the respective dimensions, whose parameters are stored in $$\theta$$
+* $$\phi(\cdot)$$ - a non-linear activation function
+* $$A^l, l=1,...,L$$ - affine linear maps in the respective dimensions, whose parameters are stored in $$\theta$$
 
 ## 4.2 SMod: intrinsic spot trading
 ### 4.2.1 Scene Setting
@@ -45,7 +45,7 @@ The optimization goal should be maximizing expected terminal utility $$\mathbb{E
 
 Meanwhile, this optimization process must adhere to the following constraints:
 1. $${H}^S_K =0$$, i.e., empty final storage(intuitive for any profit-seeking agents)
-1. For all $$0 \leq {H}^S_k\leq c$$ (storage level on any day must not exceed storage capacity $$c$$) and daily action constraints $$l_k^* \leq {h}^S_k\leq u_k^*$$, where $$l_k^* = \text{max}\{l_k,-H_k^S\}$$ and $$u_k^* = \text{min}\{u_k,c-H_k^S\}$$. The withdrawal and injection rates on each trading day must be limited by the storage capacity $$c$$, storage level $${H}^S_K$$ and a predefined lower and upper bounds $$l_k$$ and $$u_k$$ compatible with the seasonal demands and supply patterns.
+1. For all $$k \in \mathbf{T}$$: $$0 \leq {H}^S_k\leq c$$ (storage level on any day must not exceed storage capacity $$c$$) and daily action constraints $$l_k^* \leq {h}^S_k\leq u_k^*$$, where $$l_k^* = \text{max}\{l_k,-H_k^S\}$$ and $$u_k^* = \text{min}\{u_k,c-H_k^S\}$$. The withdrawal and injection actions on each trading day must be limited by the storage capacity $$c$$, the latest storage level $${H}^S_K$$ and a predefined lower and upper bounds $$l_k$$ and $$u_k$$ compatible with the seasonal demands and supply patterns.
 <br/><br/>
 ![limits](figs/limits.png)
 
@@ -63,7 +63,7 @@ _Data provider: [Expo Solutions AG] in forms of $$M=10000$$ scenarios (6000 for 
 
 **Input**: time $$k$$, current spot price $$S_k$$ and the latest storage fill level $$H^S_k$$, which iteratively depends on the previous network outputs.
 
-**Output**: storage action(withdraw or injection rate) over the whole time horizon, that is a neural network consisting of $$N \in \mathbb{N}$$ ($$N \leq K$$, as parameter sharing is allowed) distinct sub-networks whose output should be the daily action $${h}^S_k$$, each of which has $$L$$ layers.
+**Output**: storage action(withdraw or injection) over the whole time horizon, that is a neural network consisting of $$N \in \mathbb{N}$$ ($$N \leq K$$, as parameter sharing is allowed) distinct sub-networks whose output should be the daily action $${h}^S_k$$, each of which has $$L$$ layers.
 
 **-Training Criterion**
 
@@ -85,20 +85,20 @@ A standard 8-core notebook
 
 Compared to the scenarios outlined in SMod, in this context, it is imperative to aggregate the outcomes of forward trading on each trading day and consider the cumulative impact from that. They made following assumption for the **monthly forward contract**: It is only traded before its delivery period starts and no longer during the delivery period.
 
-The above visualization shows the forward trading mechanisms. The arrow points to the current timeframe. The black box refers to the spot trading activites and the green box refers to the forward trading activities. In SFMod, let $$0=n_0 < n_1< ... < n_J <K$$ be the first days of the months $$\mathbb{J}=\{0, 1, ..., J\}$$ respectively, let $${h}^j_k$$ with $$j \in \mathbb{J}$$ be the action on day $$k$$ on the forward $$F(k, n_j, n_{j+1}-1)$$ whose delivery obligation is during the period $$[n_j, n_{j+1}-1]$$, then the action on day $$k$$ is $$({h}^S_k+{d}^j)$$ for $$ n_j \leq k \leq n_{j+1}$$, which combines both spot trading and forward trading. Of particular importance is that forward trading activities have a delayed effect on the spot trading in the following month, while spot trading does not affect forward trading. After the respective forward trading has already terminated, the delivery quantities of the upcoming days in the current month are fixed, but the spot trading activities of the current month is limited by the due forwards, as the sum of the spot trading and thedaily delivery quantities must not exceed the daily withdrawl and injection limits.
+The above visualization shows the forward trading mechanisms. The arrow points to the current timeframe. The black box refers to the spot trading activites and the green box refers to the forward trading activities. In SFMod, let $$0=n_0 < n_1< ... < n_J <K$$ be the first days of the months $$\mathbb{J}=\{0, 1, ..., J\}$$ respectively, let $${h}^j_k$$ with $$j \in \mathbb{J}$$ be the action on day $$k$$ on the forward $$F(k, n_j, n_{j+1}-1)$$ whose delivery obligation is during the period $$[n_j, n_{j+1}-1]$$, then the action on day $$k$$ is $$({h}^S_k+{d}^j)$$ for $$ n_j \leq k \leq n_{j+1}$$, which combines both spot trading and forward trading. Of particular importance is that forward trading activities have a delayed effect on the spot trading in the following month, while spot trading does not affect forward trading. After the respective forward trading has already terminated, the delivery quantities of the upcoming days in the current month are fixed, but the spot trading activities of the current month is limited by the due forwards, as the sum of the spot trading and the daily delivery quantities must not exceed the daily withdrawl and injection limits.
 
 To describe this scenario, which integrates forward trading and thus becomes more complex, merely requires expanding the variables previously defined in SMod:
 
 | Variable|  Interpretation|
 | :----------- |: ----------- |
-| $$h^j_k$$ | the action on day $$k$$ on the forward $$F(k, n_j, n_{j+1}-1)$$ with the deliver period [n_j, n_{j+1}-1]| 
-| $$d^j=\sum_{k=n_{j-1}}^{n_j-1}h^j_k $$|  daily delivery quantity fixed on day $$n_j-1$$, and $$d^0=0$$| 
+| $$h^j_k$$ | the action on day $$k$$ on the forward $$F(k, n_j, n_{j+1}-1)$$ with the deliver period $$[n_j, n_{j+1}-1]$$| 
+| $$d^j=\sum_{k=n_{j-1}}^{n_j-1}h^j_k $$|  daily delivery quantity fixed on day $$n_j-1$$ ($$d^0=0$$, no delivery obligation in the first month)| 
 | $$H_n= \sum^{n-1}_{k=0}h^S_{k} + \sum^{I-1}_{j=1}(d^j(n_{j+1}-n_j))+(d^{I-1}(n-n_{I-1}+1))$$ for $$n \in [n_{I-1}, n_I]$$| the storage level depends on both spot and monthly forward trading activities(Initial condition: $${H}_n=0 $$) | 
 
 The terminal p&l generated from forward trading must also be considered as optimization objectives. In this context, the objective function expands to $$\mathbb{E}_\mathbb{P}[U(W^S_{K-1}+W^F_{K-1})]$$, where $$W^F_{K-1}=\sum^{J-1}_{j=1}\sum^{n_j-1}_{k=n_{j-1}}(-h^j_{k}F(k, n_j, n_{j+1}-1)(n_{j+1}-n_j))$$ denotes the terminal p&l from trading the monthly forward.
 
 
-In addition to the two constraints mentioned in SMod, a regularization term is required to scale the balance between spot trading and forward trading: $$h_k^j \leq \alpha \frac{c}{n_{j+1}-n_j}$$ with the scaling factor $$\alpha \in [0,1]$$. When $$\alpha=0$$, it aligns with SMod. As $$\alpha$$ increases, the upper bound of forward trading becomes larger. Such a constraint is known as a "liquidity constraint". [Liquidity] in finance refers to the ease and speed with which assets can be bought or sold without significantly affecting their prices. Spot trading impacts liquidity by providing immediate access to assets, facilitating quick buying and selling transactions, thus enhancing market liquidity. On the other hand, forward trading can impact liquidity by diverting trading activity away from spot markets, potentially reducing immediate liquidity but providing opportunities for longer-term risk management.
+In addition to the two constraints mentioned in **SMod**, a regularization term is required to scale the balance between spot trading and forward trading: $$h_k^j \leq \alpha \frac{c}{n_{j+1}-n_j}$$ with the scaling factor $$\alpha \in [0,1]$$. When $$\alpha=0$$, it aligns with **SMod**. As $$\alpha$$ increases, the upper bound of forward trading becomes larger. Such a constraint is known as a "**liquidity constraint**". [Liquidity] in finance refers to the ease and speed with which assets can be bought or sold without significantly affecting their prices. Spot trading impacts liquidity by providing immediate access to assets, facilitating quick buying and selling transactions, thus enhancing market liquidity. On the other hand, forward trading can impact liquidity by diverting trading activity away from spot markets, potentially reducing immediate liquidity but providing opportunities for longer-term risk management.
 
 ### 4.3.2 Training Setup
 The training setup for **SFMod** closely resembles that of **SMod**, with the spot trading component remaining consistent and introducing adjustments solely to incorporate the forward trading component.
