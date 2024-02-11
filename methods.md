@@ -14,7 +14,9 @@ Traditional methods for developing hedging strategies, such as statistical analy
 
 <br/>
 ![deepRL](figs/deeprl.png)
-The above graph shows the basic architecture of [deep reinforcement learning]. A popular approach within deep reinforcement learning centers on using (feed-forward) neural networks to approximate optimal actions, as neural networks are well-suited for such intricate tasks due to their versatility and efficient training capabilities. Then the storage optimization tasks should be reformulated such that it fits the structure of neural networks. Approximate each action $$h_k$$ in terms of a deep neural network $$g^\theta _k$$, parameters $$\theta$$ of these network strategies $$G^\theta = \{g_0^\theta, ...,g_{K-1}^\theta\}$$ are trained to maximize an estimate of the expected terminal utility, i.e., to solve $$\text{ max}{}_\theta \mathbb{E}_\mathbb{P}[U(W_{G^\theta})]$$
+The above graph shows the basic architecture of [deep reinforcement learning]. A popular approach within deep reinforcement learning centers on using (feed-forward) neural networks to approximate optimal actions, as neural networks are well-suited for such intricate tasks due to their versatility and efficient training capabilities. Then the storage optimization tasks should be reformulated such that it fits the structure of neural networks. Approximate each action $$h_k$$ in terms of a deep neural network $$g^\theta _k$$, parameters $$\theta$$ of these network strategies $$G^\theta = \{g_0^\theta, ...,g_{K-1}^\theta\}$$ are trained to maximize an estimate of the expected terminal utility, i.e., to solve $$\text{ max}{}_\theta \mathbb{E}_\mathbb{P}[U(W_{G^\theta})]$$. 
+
+It is noteworthy that, in the formulation of their frameworks, as opposed to the depicted reinforcement learning architecture(see aabove graph), they avoided computing intermediate value functions and evaluating actions in states with low likelihood of occurrence. Such an approach significantly decreases the computational complexity. Furthermore, their frameworks are not bounded by temporal consistency requirements or by expected reward specifications.
 
 ![NN](figs/feedforwardnn.png)
 ### Definition: Feed-Forward Neural Network
@@ -50,15 +52,24 @@ Meanwhile, this optimization process must adhere to the following constraints:
 
 ### 4.2.2 Training Setup
 **Training Data**
+
 Time horizon of storage $$T=\{0, 1, 2, ..., K-1\}$$, $$M$$ trajectories of the spot price $$({S^i}_k)_{k \in T; i=1,...,M}$$(Data provider: [Expo Solutions AG] in forms of $$M=10000$$ scenarios (6000 for training and 4000 for validation) and $$K=351$$ trading days, benchmark strategies as well)
+
 **Training Object**
+
 Input: time $$k$$, current spot price $$S_k$$ and the latest storage fill level $$H^S_k$$, which iteratively depends on the previous network outputs
 Output: storage action(withdraw or injection rate) $$\hat{G}$$ over the whole storage horizon, that is a neural network consisting of $$N \in \mathbb{N} (N \leq K, as parameter sharing is allowed)$$ distinct sub-networks, each of which has $$L$$ layers.
+
 **Training Criterion**
+
 Minimize an estimate of expected negative utility over batches $$B \subset \{1,...,M\}$$ of training data with standard Adam stochastic gradient descent, i.e., $$\text{min} \frac{1}{\|B\|}\sum_{i \in B}{-U({W}^i_{K-1})}$$
+
 **Implementation**
+
 _TENSORFLOW.KERAS_ with _sigmoid_ activation function
+
 **Hardware**
+
 A standard 8-core notebook
   
 ## 4.3 SFMod: intrinsic spot and forward trading
