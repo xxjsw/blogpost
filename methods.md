@@ -109,6 +109,8 @@ _TENSORFLOW.KERAS_ with _sigmoid_ activation function
 **-Hardware**
 
 A standard 8-core notebook
+
+
 ---
 [Deep reinforcement learning]: https://www.semanticscholar.org/paper/Semisupervised-Deep-Reinforcement-Learning-in-of-Mohammadi-Al-Fuqaha/6b72f4d16532f4e8f5ddd7640262019eea641fd6
 
