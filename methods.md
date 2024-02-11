@@ -55,7 +55,7 @@ Meanwhile, this optimization process must adhere to the following constraints:
 
 **-Training Data**
 
-Time horizon of storage $$T=\{0, 1, 2, ..., K-1\}$$, $$M$$ trajectories of the spot price $$({S^i}_k)_{k \in T; i=1,...,M}$$
+Time horizon of storage $$T=\{0, 1, 2, ..., K-1\}$$, $$M$$ trajectories of the spot price $$(S^i_k)_{k \in T; i=1,...,M}$$
 
 _Data provider: [Expo Solutions AG] in forms of $$M=10000$$ scenarios (6000 for training and 4000 for validation) and $$K=351$$ trading days, benchmark strategies as well._
 
@@ -106,7 +106,7 @@ The training setup for **SFMod** closely resembles that of **SMod**, with the sp
 
 **-Training Data**
 
-Time horizon of storage $$T=\{0, 1, 2, ..., K-1\}$$, $$M$$ trajectories of the spot price $$({S^i}_k)_{k \in T; i=1,...,M}$$ and of rolling month forward $$(F^i_k)_{k \in \mathbb{T}; i=1,...,M}$$ respectively
+Time horizon of storage $$T=\{0, 1, 2, ..., K-1\}$$, $$M$$ trajectories of the spot price $$(S^i_k)_{k \in T; i=1,...,M}$$ and of rolling month forward $$(F^i_k)_{k \in \mathbb{T}; i=1,...,M}$$ respectively
 
 _Data provider: [Expo Solutions AG] in forms of $$M=10000$$ scenarios (6000 for training and 4000 for validation) of spot as well as monthly forward curves of 12 months), $$K=351$$ trading days and benchmark strategies_
 
