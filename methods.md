@@ -97,6 +97,9 @@ To describe this scenario, which integrates forward trading and thus becomes mor
 
 The terminal p&l generated from forward trading must also be considered as optimization objectives. In this context, the objective function expands to $$\mathbb{E}_\mathbb{P}[U(W^S_{K-1}+W^F_{K-1})]$$, where $$W^F_{K-1}=\sum^{J-1}_{j=1}\sum^{n_j-1}_{k=n_{j-1}}(-h^j_{k}F(k, n_j, n_{j+1}-1)(n_{j+1}-n_j))$$ denotes the terminal p&l from trading the monthly forward.
 
+
+In addition to the two constraints mentioned in SMod, a regularization term is required to scale the balance between spot trading and forward trading: $$h_k^j \leq \alpha \frac{c}{n_{j+1}-n_j}$$ with the scaling factor $$\alpha \in [0,1]$$. When $$\alpha=0$$, it aligns with SMod. As $$\alpha$$ increases, the upper bound of forward trading becomes larger. Such a constraint is known as a "[liquidity constraint]". Liquidity in finance refers to the ease and speed with which assets can be bought or sold without significantly affecting their prices. Spot trading impacts liquidity by providing immediate access to assets, facilitating quick buying and selling transactions, thus enhancing market liquidity. On the other hand, forward trading can impact liquidity by diverting trading activity away from spot markets, potentially reducing immediate liquidity but providing opportunities for longer-term risk management.
+
 ### 4.3.2 Training Setup
 The training setup for **SFMod** closely resembles that of **SMod**, with the spot trading component remaining consistent and introducing adjustments solely to incorporate the forward trading component.
 <br/>
@@ -131,3 +134,4 @@ A standard 8-core notebook
 
 [Expo Solutions AG]: https://www.exposolutions.de/messebauwelt.html
 
+[liquidity constraint]: https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1151569
