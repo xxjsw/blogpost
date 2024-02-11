@@ -16,7 +16,7 @@ Traditional methods for developing hedging strategies, such as statistical analy
 ![deepRL](figs/deeprl.png)
 The above graph shows the basic architecture of [deep reinforcement learning]. A popular approach within deep reinforcement learning centers on using (feed-forward) neural networks to approximate optimal actions, as neural networks are well-suited for such intricate tasks due to their versatility and efficient training capabilities. Then the storage optimization tasks should be reformulated such that it fits the structure of neural networks. Approximate each action $$h_k$$ in terms of a deep neural network $$g^\theta _k$$, parameters $$\theta$$ of these network strategies $$G^\theta = \{g_0^\theta, ...,g_{K-1}^\theta\}$$ are trained to maximize an estimate of the expected terminal utility, i.e., to solve $$\text{ max}{}_\theta \mathbb{E}_\mathbb{P}[U(W_{G^\theta})]$$. 
 
-It is noteworthy that, in the formulation of their frameworks, as opposed to the depicted reinforcement learning architecture(see aabove graph), they avoided computing intermediate value functions and evaluating actions in states with low likelihood of occurrence. Such an approach significantly decreases the computational complexity. Furthermore, their frameworks are not bounded by temporal consistency requirements or by expected reward specifications.
+It is noteworthy that, in the formulation of their frameworks, as opposed to the depicted reinforcement learning architecture(see above graph), they avoided computing intermediate value functions and evaluating actions in states with low likelihood of occurrence. Such an approach significantly decreases the computational complexity. Furthermore, their frameworks are not bounded by temporal consistency requirements or by expected reward specifications.
 
 ![NN](figs/feedforwardnn.png)
 ### Definition: Feed-Forward Neural Network
@@ -41,7 +41,7 @@ Following variables are required to build the neural networks:
 | $$U(x)=(1-{e}^{-\gamma x})/\gamma$$ | an exponential utility function with risk aversion rate $$\gamma \in \mathbb{R}^+$$ (A higher risk aversion rate indicates a stronger preference for avoiding risk or uncertainty when making financial decisions.)| 
 
 
-The optimization goal should be the expected terminal utility $$\mathbb{E}_\mathbb{P}[U(W_{K-1})]$$ over all eligible $${H}^s$$ where $$W_{K-1}=-({H}^s \cdot S)_{K-1} = \sum_{k=0}^{K-1}-{h}^s_ks_k$$ denotes the terminal p&l.
+The optimization goal should be maximizing expected terminal utility $$\mathbb{E}_\mathbb{P}[U(W_{K-1})]$$ over all eligible $${H}^s$$ where $$W_{K-1}=-({H}^s \cdot S)_{K-1} = \sum_{k=0}^{K-1}-{h}^s_ks_k$$ denotes the terminal p&l.
 
 Meanwhile, this optimization process must adhere to the following constraints:
 1. $${H}^S_K =0$$, i.e., empty final storage(intuitive for any profit-seeking agents)
@@ -82,7 +82,9 @@ A standard 8-core notebook
 **spot and forward trading**: extend the previous spot-only model by trading additionally on the front month rolling forwards with delivery period of a whole month.
 ![forward](figs/SFMod/rolling_strategy.png)
 
-Compared to the scenarios outlined in SMod, in this context, it is imperative to aggregate the outcomes of forward trading on each trading day and consider the cumulative impact from that. The above visualization shows the forward trading mechanisms. The arrow points to the current timeframe. The black box refers to the spot trading activites and the green box refers to the forward trading activities. In SFMod, let $$0=n_0 < n_1< ... < n_J <K$$ be the first days of the months $$\mathbb{J}=\{0, 1, ..., J\}$$ respectively, let $${h}^j_k$$ with $$j \in \mathbb{J}$$ be the action on day $$k$$ on the forward $$F(k, n_j, n_{j+1}-1)$$ whose delivery obligation is during the period $$[n_j, n_{j+1}-1]$$, then the action on day $$k$$ is $$({h}^S_k+{d}^j)$$ for $$ n_j \leq k \leq n_{j+1}$$, which combines both spot trading and forward trading. Of particular importance is that forward trading activities have a delayed effect on the spot trading in the following month, while spot trading does not affect forward trading. After the respective forward trading has already terminated, the delivery quantities of the upcoming days in the current month are fixed, but the spot trading activities of the current month is limited by the due forwards, as the sum of the spot trading and thedaily delivery quantities must not exceed the daily withdrawl and injection limits.
+Compared to the scenarios outlined in SMod, in this context, it is imperative to aggregate the outcomes of forward trading on each trading day and consider the cumulative impact from that. They made following assumption for the **monthly forward contract**: It is only traded before its delivery period starts and no longer during the delivery period. Its delivery obligation are valued using the spot prices.
+
+The above visualization shows the forward trading mechanisms. The arrow points to the current timeframe. The black box refers to the spot trading activites and the green box refers to the forward trading activities. In SFMod, let $$0=n_0 < n_1< ... < n_J <K$$ be the first days of the months $$\mathbb{J}=\{0, 1, ..., J\}$$ respectively, let $${h}^j_k$$ with $$j \in \mathbb{J}$$ be the action on day $$k$$ on the forward $$F(k, n_j, n_{j+1}-1)$$ whose delivery obligation is during the period $$[n_j, n_{j+1}-1]$$, then the action on day $$k$$ is $$({h}^S_k+{d}^j)$$ for $$ n_j \leq k \leq n_{j+1}$$, which combines both spot trading and forward trading. Of particular importance is that forward trading activities have a delayed effect on the spot trading in the following month, while spot trading does not affect forward trading. After the respective forward trading has already terminated, the delivery quantities of the upcoming days in the current month are fixed, but the spot trading activities of the current month is limited by the due forwards, as the sum of the spot trading and thedaily delivery quantities must not exceed the daily withdrawl and injection limits.
 
 ### 4.3.2 Training Setup
 The training setup for **SFMod** closely resembles that of **SMod**, with the spot trading component remaining unchanged and introducing adjustments solely to incorporate the forward trading component.
@@ -98,7 +100,7 @@ _Data provider: [Expo Solutions AG] in forms of $$M=10000$$ scenarios (6000 for 
 
 **Input**: time $$k$$, current spot price $$S_k$$, forward $$F_k$$ and the latest storage fill level $$H_k$$, which iteratively depends on the previous network outputs
 
-**Output**: for each trading day $$k$$, trading strategy network with two outputs for spot action $$h^S_k$$ and action in the rolling month forward $$h^j_k$$ respectively, consisting of $$N \in \mathbb{N}$$($$N \leq K$$, as parameter sharing is allowed) distinct sub-networks, each of which has $$L$$ layers.
+**Output**: for each trading day $$k$$, trading strategy network with two-dimensional outputs for spot action $$h^S_k$$ and action in the rolling month forward $$h^j_k$$ respectively, consisting of $$N \in \mathbb{N}$$($$N \leq K$$, as parameter sharing is allowed) distinct sub-networks, each of which has $$L$$ layers.
 
 **-Training Criterion**
 
