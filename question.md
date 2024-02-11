@@ -31,10 +31,11 @@ The above table lists necessary parameters to define storage optimization constr
 
 
 
-The goal of gas storage optimization is to determine optimal decisions within a constrained and uncertain market environment to maximize the expected terminal utility of accumulated wealth. More formally, let $$h_k$$ be the action taken on day $$k$$($$h_k > 0$$refers to an injection of $$\|h_k\|$$ MWh and $$h_k < 0$$ refers to a withdraw of $$\|h_k\|$$ MWh), then a trading strategy over the whole trading horizon is collected in $$H=\{h_0, h_1,..., h_{K-1} \}$$. The agents seeks to identify an optimal strategy $${H}^*$$ satisfying: $${H}^*= \text{arg max}{}_H \mathbb{E}_\mathbb{P}[U(W_H)]$$, where $$W_H$$ refers to the terminal wealth depending on the trading price curve and the trading strategy $$H$$, $$U$$ refers to the utility function. Meanwhile, constraints such as the upper limit of withdraw or injection on each trading day with respect to certain storage level should be taken into consideration.
+The goal of gas storage optimization is to determine optimal decisions within a constrained and uncertain market environment to maximize the expected terminal utility of accumulated wealth. More formally, let $$h_k$$ be the action taken on day $$k$$($$h_k > 0$$ refers to an injection of $$\|h_k\|$$ MWh and $$h_k < 0$$ refers to a withdraw of $$\|h_k\|$$ MWh), then a trading strategy over the whole trading horizon is collected in $$H=\{h_0, h_1,..., h_{K-1} \}$$. The agents seeks to identify an optimal strategy $${H}^*$$ satisfying: $${H}^*= \text{arg max}{}_H \mathbb{E}_\mathbb{P}[U(W_H)]$$, where $$W_H$$ refers to the terminal wealth depending on the trading price curve and the trading strategy $$H$$, $$U$$ refers to the utility function. Meanwhile, constraints such as the upper limit of withdraw or injection on each trading day with respect to certain storage level should be taken into consideration.
 
 
 ![Utility function](figs/utility.png)
+
 _Remarks: A utility function measures preferences by assigning numerical values representing satisfaction or happiness to accumulated wealth. The interesting part is "diminishing marginal utility", which means the rate of satisfaction growth is slowing down with each additional unit wealth. It examines various aspects of human behavior related to production, consumption, and distribution of goods and services, as well as the functioning of markets and economies. Utility functions in social science, such as economics, are widely employed, for example, make taxation policies._
 
 

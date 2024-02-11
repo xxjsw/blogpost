@@ -58,7 +58,7 @@ Time horizon of storage $$T=\{0, 1, 2, ..., K-1\}$$, $$M$$ trajectories of the s
 **Training Object**
 
 Input: time $$k$$, current spot price $$S_k$$ and the latest storage fill level $$H^S_k$$, which iteratively depends on the previous network outputs
-Output: storage action(withdraw or injection rate) $$\hat{G}$$ over the whole storage horizon, that is a neural network consisting of $$N \in \mathbb{N} (N \leq K, as parameter sharing is allowed)$$ distinct sub-networks, each of which has $$L$$ layers.
+Output: storage action(withdraw or injection rate) $$\hat{G}$$ over the whole storage horizon, that is a neural network consisting of $$N \in \mathbb{N}$$ ($$N \leq K$$, as parameter sharing is allowed) distinct sub-networks, each of which has $$L$$ layers.
 
 **Training Criterion**
 
