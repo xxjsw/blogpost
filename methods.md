@@ -61,7 +61,7 @@ _Data provider: [Expo Solutions AG] in forms of $$M=10000$$ scenarios (6000 for 
 
 **-Training Object**
 
-**Input**: time $$k$$, current spot price $$S_k$$ and the latest storage fill level $$H^S_k$$, which iteratively depends on the previous network outputs
+**Input**: time $$k$$, current spot price $$S_k$$ and the latest storage fill level $$H^S_k$$, which iteratively depends on the previous network outputs.
 
 **Output**: storage action(withdraw or injection rate) $$\hat{G}$$ over the whole storage horizon, that is a neural network consisting of $$N \in \mathbb{N}$$ ($$N \leq K$$, as parameter sharing is allowed) distinct sub-networks, each of which has $$L$$ layers.
 
@@ -80,14 +80,24 @@ A standard 8-core notebook
 ## 4.3 SFMod: intrinsic spot and forward trading
 ### 4.3.1 Scene Setting
 **spot and forward trading**: extend the previous spot-only model by trading additionally on the front month rolling forwards with delivery period of a whole month.
+
 ![forward](figs/SFMod/rolling_strategy.png)
 
-Compared to the scenarios outlined in SMod, in this context, it is imperative to aggregate the outcomes of forward trading on each trading day and consider the cumulative impact from that. They made following assumption for the **monthly forward contract**: It is only traded before its delivery period starts and no longer during the delivery period. Its delivery obligation are valued using the spot prices.
+Compared to the scenarios outlined in SMod, in this context, it is imperative to aggregate the outcomes of forward trading on each trading day and consider the cumulative impact from that. They made following assumption for the **monthly forward contract**: It is only traded before its delivery period starts and no longer during the delivery period.
 
 The above visualization shows the forward trading mechanisms. The arrow points to the current timeframe. The black box refers to the spot trading activites and the green box refers to the forward trading activities. In SFMod, let $$0=n_0 < n_1< ... < n_J <K$$ be the first days of the months $$\mathbb{J}=\{0, 1, ..., J\}$$ respectively, let $${h}^j_k$$ with $$j \in \mathbb{J}$$ be the action on day $$k$$ on the forward $$F(k, n_j, n_{j+1}-1)$$ whose delivery obligation is during the period $$[n_j, n_{j+1}-1]$$, then the action on day $$k$$ is $$({h}^S_k+{d}^j)$$ for $$ n_j \leq k \leq n_{j+1}$$, which combines both spot trading and forward trading. Of particular importance is that forward trading activities have a delayed effect on the spot trading in the following month, while spot trading does not affect forward trading. After the respective forward trading has already terminated, the delivery quantities of the upcoming days in the current month are fixed, but the spot trading activities of the current month is limited by the due forwards, as the sum of the spot trading and thedaily delivery quantities must not exceed the daily withdrawl and injection limits.
 
+To describe this scenario, which integrates forward trading and thus becomes more complex, merely requires expanding the variables previously defined in SMOD:
+
+| Variable|  Interpretation|
+| :----------- |: ----------- |
+| $$h^j_k$$ | the action on day $$k$$ on the forward $$F(k, n_j, n_{j+1}-1)$$ with the deliver period [n_j, n_{j+1}-1]| 
+| $$d^j=\sum_{k=n_{j-1}}^{n_j-1}h^j_k $$|  daily delivery quantity fixed on day $$n_j-1$$, and $$d^0=0$$| 
+| $$H_n= \sum^{n-1}_{k=0}h^S_{k} + \sum^{I-1}_{j=1}(d^j(n_{j+1}-n_j))+(d^{I-1}(n-n_{I-1}+1))$$ for $$n \in [n_{I-1}, n_I]$$| the storage level depends on both spot and monthly forward trading activities(Initial condition: $${H}_n=0 $$) | 
+
+
 ### 4.3.2 Training Setup
-The training setup for **SFMod** closely resembles that of **SMod**, with the spot trading component remaining unchanged and introducing adjustments solely to incorporate the forward trading component.
+The training setup for **SFMod** closely resembles that of **SMod**, with the spot trading component remaining consistent and introducing adjustments solely to incorporate the forward trading component.
 <br/>
 
 **-Training Data**
@@ -98,7 +108,7 @@ _Data provider: [Expo Solutions AG] in forms of $$M=10000$$ scenarios (6000 for 
 
 **-Training Object**
 
-**Input**: time $$k$$, current spot price $$S_k$$, forward $$F_k$$ and the latest storage fill level $$H_k$$, which iteratively depends on the previous network outputs
+**Input**: time $$k$$, current spot price $$S_k$$, forward $$F_k$$ and the latest storage fill level $$H_k$$, which iteratively depends on the previous network outputs.
 
 **Output**: for each trading day $$k$$, trading strategy network with two-dimensional outputs for spot action $$h^S_k$$ and action in the rolling month forward $$h^j_k$$ respectively, consisting of $$N \in \mathbb{N}$$($$N \leq K$$, as parameter sharing is allowed) distinct sub-networks, each of which has $$L$$ layers.
 
