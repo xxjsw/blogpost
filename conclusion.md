@@ -28,7 +28,7 @@ This research sketches how deep learning methods can effectively address challen
 
 * Bekaert, Geert and Harvey, Campbell R. and Lundblad, Christian T., Liquidity and Expected Returns: Lessons from Emerging Markets (November 2007). The Review of Financial Studies, Vol. 20, Issue 6, pp. 1783-1831. https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1151569
 
-* Petersen, M. A., & Thiagarajan, S. R. (2000). Risk Measurement and Hedging: With and without Derivatives. Financial Management, 29(4), 5–29. https://doi.org/10.2307/3666367
+* Petersen, M. A., & Thiagarajan, S. R. (2000). Risk Measurement and Hedging: With and without Derivatives. Financial Management, 29(4), 5–29. https://www.jstor.org/stable/3666367
 
 
 
