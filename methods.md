@@ -51,8 +51,6 @@ Meanwhile, this optimization process must adhere to the following constraints:
 
 
 ### 4.2.2 Training Setup
-<br/>
-
 **-Training Data**
 
 Time horizon of storage $$T=\{0, 1, 2, ..., K-1\}$$, $$M$$ trajectories of the spot price $$(S^i_k)_{k \in T; i=1,...,M}$$
