@@ -55,11 +55,13 @@ Meanwhile, this optimization process must adhere to the following constraints:
 
 **-Training Data**
 
-Time horizon of storage $$T=\{0, 1, 2, ..., K-1\}$$, $$M$$ trajectories of the spot price $$({S^i}_k)_{k \in T; i=1,...,M}$$(Data provider: [Expo Solutions AG] in forms of $$M=10000$$ scenarios (6000 for training and 4000 for validation) and $$K=351$$ trading days, benchmark strategies as well)
+Time horizon of storage $$T=\{0, 1, 2, ..., K-1\}$$, $$M$$ trajectories of the spot price $$({S^i}_k)_{k \in T; i=1,...,M}$$
+_Data provider: [Expo Solutions AG] in forms of $$M=10000$$ scenarios (6000 for training and 4000 for validation) and $$K=351$$ trading days, benchmark strategies as well_
 
 **-Training Object**
 
 **Input**: time $$k$$, current spot price $$S_k$$ and the latest storage fill level $$H^S_k$$, which iteratively depends on the previous network outputs
+
 **Output**: storage action(withdraw or injection rate) $$\hat{G}$$ over the whole storage horizon, that is a neural network consisting of $$N \in \mathbb{N}$$ ($$N \leq K$$, as parameter sharing is allowed) distinct sub-networks, each of which has $$L$$ layers.
 
 **-Training Criterion**
