@@ -87,7 +87,7 @@ Compared to the scenarios outlined in SMod, in this context, it is imperative to
 
 The above visualization shows the forward trading mechanisms. The arrow points to the current timeframe. The black box refers to the spot trading activites and the green box refers to the forward trading activities. In SFMod, let $$0=n_0 < n_1< ... < n_J <K$$ be the first days of the months $$\mathbb{J}=\{0, 1, ..., J\}$$ respectively, let $${h}^j_k$$ with $$j \in \mathbb{J}$$ be the action on day $$k$$ on the forward $$F(k, n_j, n_{j+1}-1)$$ whose delivery obligation is during the period $$[n_j, n_{j+1}-1]$$, then the action on day $$k$$ is $$({h}^S_k+{d}^j)$$ for $$ n_j \leq k \leq n_{j+1}$$, which combines both spot trading and forward trading. Of particular importance is that forward trading activities have a delayed effect on the spot trading in the following month, while spot trading does not affect forward trading. After the respective forward trading has already terminated, the delivery quantities of the upcoming days in the current month are fixed, but the spot trading activities of the current month is limited by the due forwards, as the sum of the spot trading and thedaily delivery quantities must not exceed the daily withdrawl and injection limits.
 
-To describe this scenario, which integrates forward trading and thus becomes more complex, merely requires expanding the variables previously defined in SMOD:
+To describe this scenario, which integrates forward trading and thus becomes more complex, merely requires expanding the variables previously defined in SMod:
 
 | Variable|  Interpretation|
 | :----------- |: ----------- |
