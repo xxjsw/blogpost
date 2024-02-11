@@ -84,6 +84,31 @@ A standard 8-core notebook
 Compared to the scenarios outlined in SMod, in this context, it is imperative to aggregate the outcomes of forward trading on each trading day and consider the cumulative impact from that. The above visualization shows the forward trading mechanisms. The arrow points to the current timeframe. The black box refers to the spot trading activites and the green box refers to the forward trading activities. In SFMod, let $$0=n_0 < n_1< ... < n_J <K$$ be the first days of the months $$\mathbb{J}=\{0, 1, ..., J\}$$ respectively, let $${h}^j_k$$ with $$j \in \mathbb{J}$$ be the action on day $$k$$ on the forward $$F(k, n_j, n_{j+1}-1)$$ whose delivery obligation is during the period $$[n_j, n_{j+1}-1]$$, then the action on day $$k$$ is $$({h}^S_k+{d}^j)$$ for $$ n_j \leq k \leq n_{j+1}$$, which combines both spot trading and forward trading. Of particular importance is that forward trading activities have a delayed effect on the spot trading in the following month, while spot trading does not affect forward trading. After the respective forward trading has already terminated, the delivery quantities of the upcoming days in the current month are fixed, but the spot trading activities of the current month is limited by the due forwards, as the sum of the spot trading and thedaily delivery quantities must not exceed the daily withdrawl and injection limits.
 
 ### 4.3.2 Training Setup
+The training setup for **SFMod** closely resembles that of **SMod**, with the spot trading component remaining unchanged and introducing adjustments solely to incorporate the forward trading component.
+<br/>
+
+**-Training Data**
+
+Time horizon of storage $$T=\{0, 1, 2, ..., K-1\}$$, $$M$$ trajectories of the spot price $$({S^i}_k)_{k \in T; i=1,...,M}$$ and of rolling month forward $$(F^i_k)_{k \in \mathbb{T}; i=1,...,M}$$ respectively
+_Data provider: [Expo Solutions AG] in forms of $$M=10000$$ scenarios (6000 for training and 4000 for validation) of spot as well as monthly forward curves of 12 months), $$K=351$$ trading days and benchmark strategies_
+
+**-Training Object**
+
+**Input**: time $$k$$, current spot price $$S_k$$, forward $$F_k$$ and the latest storage fill level $$H_k$$, which iteratively depends on the previous network outputs
+
+**Output**: for each trading day $$k$$, trading strategy network with two outputs for spot action $$h^S_k$$ and action in the rolling month forward $$h^j_k$$ respectively, consisting of $$N \in \mathbb{N}$$($$N \leq K$$, as parameter sharing is allowed) distinct sub-networks, each of which has $$L$$ layers.
+
+**-Training Criterion**
+
+Minimize an estimate of expected negative utility over batches $$B \subset \{1,...,M\}$$ of training data with standard Adam stochastic gradient descent, i.e., $$\text{min} \frac{1}{\|B\|}\sum_{i \in B}{-U({W}^{i,S}_{K-1}+{W}^{i,F}_{K-1})}$$
+
+**-Implementation**
+
+_TENSORFLOW.KERAS_ with _sigmoid_ activation function
+
+**-Hardware**
+
+A standard 8-core notebook
 ---
 [Deep reinforcement learning]: https://www.semanticscholar.org/paper/Semisupervised-Deep-Reinforcement-Learning-in-of-Mohammadi-Al-Fuqaha/6b72f4d16532f4e8f5ddd7640262019eea641fd6
 
