@@ -45,7 +45,7 @@ The optimization goal should be maximizing expected terminal utility $$\mathbb{E
 
 Meanwhile, this optimization process must adhere to the following constraints:
 1. $${H}^S_K =0$$, i.e., empty final storage(intuitive for any profit-seeking agents)
-1. For all $$k \in \mathbf{T}$$: $$0 \leq {H}^S_k\leq c$$ (storage level on any day must not exceed storage capacity $$c$$) and daily action constraints $$l_k^* \leq {h}^S_k\leq u_k^*$$, where $$l_k^* = \text{max}\{l_k,-H_k^S\}$$ and $$u_k^* = \text{min}\{u_k,c-H_k^S\}$$. The withdrawal and injection actions on each trading day must be limited by the storage capacity $$c$$, the latest storage level $${H}^S_K$$ and a predefined lower and upper bounds $$l_k$$ and $$u_k$$ compatible with the seasonal demands and supply patterns.
+1. For all $$k \in \mathbf{T}$$: $$0 \leq {H}^S_k\leq c$$ (storage level on any day must not exceed storage capacity $$c$$) and daily action constraints $$l_k^* \leq {h}^S_k\leq u_k^*$$, where $$l_k^* = \text{max}\{l_k,-H_k^S\}$$ and $$u_k^* = \text{min}\{u_k,c-H_k^S\}$$. The withdrawal and injection actions on each trading day must be limited by the storage capacity $$c$$, the latest storage level $${H}^S_K$$ and predefined lower and upper bounds $$l_k$$ and $$u_k$$ compatible with the seasonal demands and supply patterns.
 <br/><br/>
 ![limits](figs/limits.png)
 
