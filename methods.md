@@ -51,24 +51,26 @@ Meanwhile, this optimization process must adhere to the following constraints:
 
 
 ### 4.2.2 Training Setup
-**Training Data**
+<br/>
+
+**-Training Data**
 
 Time horizon of storage $$T=\{0, 1, 2, ..., K-1\}$$, $$M$$ trajectories of the spot price $$({S^i}_k)_{k \in T; i=1,...,M}$$(Data provider: [Expo Solutions AG] in forms of $$M=10000$$ scenarios (6000 for training and 4000 for validation) and $$K=351$$ trading days, benchmark strategies as well)
 
-**Training Object**
+**-Training Object**
 
-Input: time $$k$$, current spot price $$S_k$$ and the latest storage fill level $$H^S_k$$, which iteratively depends on the previous network outputs
-Output: storage action(withdraw or injection rate) $$\hat{G}$$ over the whole storage horizon, that is a neural network consisting of $$N \in \mathbb{N}$$ ($$N \leq K$$, as parameter sharing is allowed) distinct sub-networks, each of which has $$L$$ layers.
+**Input**: time $$k$$, current spot price $$S_k$$ and the latest storage fill level $$H^S_k$$, which iteratively depends on the previous network outputs
+**Output**: storage action(withdraw or injection rate) $$\hat{G}$$ over the whole storage horizon, that is a neural network consisting of $$N \in \mathbb{N}$$ ($$N \leq K$$, as parameter sharing is allowed) distinct sub-networks, each of which has $$L$$ layers.
 
-**Training Criterion**
+**-Training Criterion**
 
 Minimize an estimate of expected negative utility over batches $$B \subset \{1,...,M\}$$ of training data with standard Adam stochastic gradient descent, i.e., $$\text{min} \frac{1}{\|B\|}\sum_{i \in B}{-U({W}^i_{K-1})}$$
 
-**Implementation**
+**-Implementation**
 
 _TENSORFLOW.KERAS_ with _sigmoid_ activation function
 
-**Hardware**
+**-Hardware**
 
 A standard 8-core notebook
   
